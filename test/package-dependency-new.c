@@ -6,12 +6,12 @@ int
 main() {
   describe("clib_package_dependency_new") {
     it("should return NULL when given bad input") {
-      assert(NULL == clib_package_dependency_new("foo/bar", NULL));
-      assert(NULL == clib_package_dependency_new(NULL, "foo/bar"));
+      assert(NULL == clib_package_dependency_new("foo/bar", NULL, NULL));
+      assert(NULL == clib_package_dependency_new(NULL, "foo/bar", NULL));
     }
 
     it("should return a clib-dependency when given valid input") {
-      clib_package_dependency_t *dep = clib_package_dependency_new("foo/bar", "1.2.3");
+      clib_package_dependency_t *dep = clib_package_dependency_new("foo/bar", "1.2.3", NULL);
       assert(dep);
       assert_str_equal("foo", dep->author);
       assert_str_equal("bar", dep->name);
@@ -20,14 +20,14 @@ main() {
     }
 
     it("should transform \"*\" to \"master\"") {
-      clib_package_dependency_t *dep = clib_package_dependency_new("foo/bar", "*");
+      clib_package_dependency_t *dep = clib_package_dependency_new("foo/bar", "*", NULL);
       assert(dep);
       assert_str_equal("master", dep->version);
       clib_package_dependency_free(dep);
     }
 
     it("should default to \"clibs\" when no repo author is given") {
-      clib_package_dependency_t *dep = clib_package_dependency_new("foo", "master");
+      clib_package_dependency_t *dep = clib_package_dependency_new("foo", "master", NULL);
       assert(dep);
       assert_str_equal("clibs", dep->author);
       assert_str_equal("master", dep->version);

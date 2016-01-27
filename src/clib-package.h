@@ -15,6 +15,7 @@ typedef struct {
   char *name;
   char *author;
   char *version;
+  char *slug;
 } clib_package_dependency_t;
 
 typedef struct {
@@ -56,7 +57,7 @@ char *
 clib_package_parse_name(const char *);
 
 clib_package_dependency_t *
-clib_package_dependency_new(const char *, const char *);
+clib_package_dependency_new(const char *, const char *, const char *);
 
 int
 clib_package_install(clib_package_t *, const char *, int);
